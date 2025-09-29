@@ -1,0 +1,97 @@
+project/
+├─ utils/                       # 汎用・共通モジュール
+│   ├─ __init__.py
+│   ├─ loaders/                 # 設定ファイル読み込み
+│   │   ├─ __init__.py
+│   │   ├─ base.py
+│   │   ├─ yaml_loader.py
+│   │   ├─ json_loader.py
+│   │   ├─ ini_loader.py
+│   │   ├─ conf_loader.py
+│   │   └─ csv_loader.py
+│   ├─ validators/              # 型・値域・正規化などの検証
+│   │   ├─ __init__.py
+│   │   └─ schema_validator.py
+│   ├─ calculator/              # 設定値を用いた計算ロジック
+│   │   ├─ __init__.py
+│   │   └─ calculator.py
+│   └─ logging_config.py        # 共通ログ設定
+│
+├─ source/                      # プロジェクト固有モジュール
+│   ├─ __init__.py
+│   ├─ app_logic.py             # ビジネスロジック
+│   ├─ data_processing.py       # データ処理
+│   ├─ ui/                      # UI関連
+│   │   ├─ __init__.py
+│   │   ├─ main_window.py
+│   │   ├─ widgets.py
+│   │   └─ icons/               # UIリソース（アイコンなど）
+│   │       ├─ play.png
+│   │       └─ stop.png
+│   └─ database/                # DB関連
+│       ├─ __init__.py
+│       ├─ connection.py
+│       ├─ models.py
+│       └─ migrations/
+│
+├─ tests/                       # テストコード・テスト用リソース
+│   ├─ configs/                 # 設定ファイルのサンプル
+│   │   ├─ valid.yaml
+│   │   ├─ invalid_range.yaml
+│   │   ├─ valid.json
+│   │   └─ invalid.json
+│   ├─ test_yaml_loader.py
+│   ├─ test_json_loader.py
+│   ├─ test_ini_loader.py
+│   ├─ test_conf_loader.py
+│   ├─ test_csv_loader.py
+│   ├─ test_calculator.py
+│   ├─ test_app_logic.py
+│   └─ ...その他ユニット・統合テスト
+│
+├─ docs/                        # ドキュメント・マニュアル
+│   ├─ design.md
+│   ├─ user_guide.md
+│   └─ examples/
+│
+├─ installer/                   # インストーラ・パッケージ化用
+│   ├─ setup.py
+│   ├─ pyproject.toml
+│   └─ Dockerfile
+│
+├─ README.md
+└─ 
+
+(A) CI/CD関連
+
+自動テストの統合: GitHub Actions, GitLab CI, Jenkinsなどで tests/ を自動実行
+
+コードカバレッジ測定: pytest-cov などで utils と source のカバレッジを可視化
+
+(B) 型チェック・静的解析
+
+mypy / pyright で型チェック
+
+pylint / flake8 でコード品質チェック
+
+(C) ドキュメント自動生成
+
+Sphinx または mkdocs で utils/ と source/ の API ドキュメント自動生成
+
+(D) 設定・リソース管理
+
+環境別設定管理（dev / test / prod）を tests/configs/ と source/configs/ に分ける
+
+設定値の型・値域チェックは validators/schema_validator.py で統一
+
+(E) ロギング・モニタリング
+
+共通ログフォーマット・ログレベルを utils/logging_config.py に統一
+
+必要に応じてファイル出力や外部ロガーへの転送も検討
+
+(F) 将来的な拡張
+
+通信モジュール、機械学習モデル、GPU処理などは utils/ に追加して汎用化
+
+新しいフォーマットの設定ファイルは utils/loaders/ に追加で対応
